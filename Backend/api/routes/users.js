@@ -85,4 +85,32 @@ router.post('/login',(req,res,next)=>{
         });
 });
 
+router.delete('/:userId',(req,res,next) => {
+    User.findById(req.params.userId).exec().then(result => {
+        if (!result){
+            res.status(409).json({
+                messgae: "userID does not exist"
+            })
+        }else{
+            User.remove({_id : result._id})
+                .exec()
+                .then(deletedUser => {
+                    res.status(200).json({
+                        message: "the user has been deleted",
+                        userDeleted: deletedUser
+                    })
+                })
+                .catch(err => {
+                    res.status(409).json({
+                        message: err
+                    })
+                });
+        }
+    }).catch(err => {
+        res.status(409).json({
+            message:err
+        })
+    });
+});
+
 module.exports = router;
