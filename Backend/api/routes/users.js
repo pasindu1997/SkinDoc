@@ -50,4 +50,39 @@ router.post('/signup',(req,res,next) =>{
 
 });
 
+router.post('/login',(req,res,next)=>{
+    User.find({email:req.body.email}).exec()
+        .then(Users => {
+            if (Users.length<1){
+                return res.status(401).json({
+                    message:"Auth failed"
+                })
+            }
+            //checking whether the password is correct
+            if (bcrypt.compareSync(req.body.password, Users[0].password)){
+                console.log("hetti");
+                const token = jwt.sign({
+                    email:Users[0].password,
+                    userId: Users[0]._id
+                }, process.env.JWT_KEY,{
+                    expiresIn: "1h"
+                });
+                return res.status(200).json({
+                    message: 'Auth successful',
+                    token: token
+                })
+            }else{
+                return res.status(401).json({
+                    message: 'Auth failed'
+                })
+            }
+
+        })
+        .catch(err => {
+            res.status(401).json({
+                message:"err"
+            })
+        });
+});
+
 module.exports = router;
