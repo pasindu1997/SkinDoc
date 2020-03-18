@@ -8,6 +8,7 @@ mongoose.connect('mongodb+srv://pasindu97:pasindu1997@cluster0-uheo1.mongodb.net
 mongoose.Promise = global.Promise;
 
 const userRoutes = require('./api/routes/users');
+const imageRoutes = require('./api/routes/images');
 
 //this will make the upload file public which means this folder is publicly available
 app.use('/uploads ',express.static('uploads')); //hit http://localhost:3000/A%2016.jpg in browser
@@ -27,6 +28,8 @@ app.use((req,res,next)=>{
 
 //routes which should handle request
 app.use('/users',userRoutes);
+app.use('/images',imageRoutes);
+
 
 //if there is no requests route the below
 app.use((req,res,next)=> {
