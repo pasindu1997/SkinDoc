@@ -39,7 +39,10 @@ router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
     console.log(req.file);
     const image = new Image({
         _id: new mongoose.Types.ObjectId(),
-        image: req.file.path
+        image: req.file.path,
+        firstName: req.body.firstName,
+        lastName:req.body.lastName,
+        NIC: req.body.NIC
     });
     //saving to the database
     image.save().then(result => {
@@ -63,4 +66,6 @@ router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
         });
 
 });
+
+
 module.exports = router;
