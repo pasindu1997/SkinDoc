@@ -67,5 +67,29 @@ router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
 
 });
 
+router.get('/',(req,res,next)=>{
+    const NIC = req.body.NIC;
+    Image.find({'NIC':NIC})
+        .select('image firstName lastName NIC')
+        .exec()
+        .then(result => {
+            console.log("this is from database",result);
+            if(result){
+                res.status(200).send(result);
+            }else{
+                res.status(404).send({
+                    message: 'Not a valid id'
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send({
+                error: err
+            });
+        })
+});
+
+
 
 module.exports = router;
