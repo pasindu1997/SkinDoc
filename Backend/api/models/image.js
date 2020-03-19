@@ -5,6 +5,8 @@ const imageSchema = mongoose.Schema({
     image : {type:String, required:true},
     firstName : {type: String, required: false},
     lastName : {type: String, required: false},
-    NIC : {type: Number, required: true}
+    NIC : {type: Number, required: true},
+    prediction:{type:String,required:true},
+    percentage:{type:Number,required:true}
 });
 module.exports = mongoose.model('image',imageSchema);

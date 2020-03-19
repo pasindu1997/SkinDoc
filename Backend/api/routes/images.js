@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Image = require('../models/image');
+const fetch = require('node-fetch');
 
 //this is the package used to upload the files
 const multer = require('multer');
@@ -37,40 +38,46 @@ const upload = multer({
 
 router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
     console.log(req.file);
-    const image = new Image({
-        _id: new mongoose.Types.ObjectId(),
-        image: req.file.path,
-        firstName: req.body.firstName,
-        lastName:req.body.lastName,
-        NIC: req.body.NIC
-    });
-    //saving to the database
-    image.save().then(result => {
-        console.log(result);
-        res.status(200).json({
-            message: 'handling post requests to /image',
-            created: {
-                _id: result._id,
-                request:{
-                    type: 'GET',
-                    url:'http://localhost:3000/image/' + result._id
-                }
-            }
-        });
-    })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error:err
+    const name = req.file.originalname;
+    const api = `http://127.0.0.1:5000/flask/predict?filename=${name}`;
+    fetch(api,{method:'POST'})
+        .then(res => res.json())
+        .then(json => {
+            const image = new Image({
+                _id: new mongoose.Types.ObjectId(),
+                image: req.file.originalname,
+                firstName: req.body.firstName,
+                lastName:req.body.lastName,
+                NIC: req.body.NIC,
+                prediction: json['Prediction'],
+                percentage: json['Probability']
             });
+
+            //saving to the database
+            image.save().then(result => {
+                console.log(result);
+                res.status(200).json({
+                    message: 'Image successfully uploaded',
+                    created: {
+                        NIC: result.NIC,
+                    }
+                });
+            })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error:err
+                    });
+                });
         });
+
 
 });
 
 router.get('/',(req,res,next)=>{
     const NIC = req.body.NIC;
     Image.find({'NIC':NIC})
-        .select('image firstName lastName NIC')
+        .select('image firstName lastName NIC prediction percentage')
         .exec()
         .then(result => {
             console.log("this is from database",result);
