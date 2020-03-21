@@ -15,7 +15,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 #saving the model name and extension to model_path
-MODEL_PATH = 'model2.h5'
+MODEL_PATH = 'C:/Users/Hetti/Desktop/model2.h5'
 
 #loading my trained model
 model = load_model(MODEL_PATH)
@@ -31,17 +31,16 @@ def image_resize(inputImage):
 
 @app.route('/flask/predict',methods=['POST'])
 def predictor():
-    data = request.get_json()
-    fileName = data['imagePath']
-    image_path = "C:/Users/Hetti/Desktop/DataScience-ML& DL Model/" + fileName
+    fileName = request.args.get('filename')
+    image_path = "E:/IIT 2nd year/SDGP/IMPLEMENTATION/SkinDoc/Backend/uploads/" + fileName
     loadImage = cv2.imread(image_path)
     resizedImage =image_resize(loadImage)
     probabilities = model.predict(resizedImage)
     image_class = np.argmax(probabilities,axis=1)
     if image_class == 0:
-        return jsonify({'Prediction':'Benign', 'Probability':(int(probabilities[0][0]*100))})
+        return jsonify({'Prediction':'Benign', 'Probability':(round(float(probabilities[0][0]*100),2))})
     else:
-        return jsonify({'Prediction': 'Malignant', 'Probability': (int(probabilities[0][1]*100))})
+        return jsonify({'Prediction': 'Malignant', 'Probability': (round(float(probabilities[0][1]*100),2))})
 
 if __name__ == "__main__":
     app.run(debug=True,threaded=False)
