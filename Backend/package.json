@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pasindu1997/SkinDoc_Backend.git"
+    "url": "git+https://github.com/pasindu1997/SkinDoc.git"
   },
   "keywords": [
     "sdgp",
@@ -18,9 +18,9 @@
   "author": "Pasindu Prabath Hettiarachchi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pasindu1997/SkinDoc_Backend/issues"
+    "url": "https://github.com/pasindu1997/SkinDoc/issues"
   },
-  "homepage": "https://github.com/pasindu1997/SkinDoc_Backend#readme",
+  "homepage": "https://github.com/pasindu1997/SkinDoc#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -29,6 +29,7 @@
     "mongoose": "^5.7.13",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.1"
   }
 }
