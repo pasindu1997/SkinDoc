@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import{JwtHelperService} from '@auth0/angular-jwt'; 
 
 
 const helper=new JwtHelperService();
