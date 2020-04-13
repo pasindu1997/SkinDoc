@@ -1,0 +1,7 @@
+{
+  "name": "skinDocApplication",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
