@@ -7,6 +7,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Storage } from '@ionic/storage';
 import { FilePath } from '@ionic-native/file-path/ngx';
 
+
 import { finalize } from 'rxjs/operators';
 
 const STORAGE_KEY = 'my_images';
@@ -19,6 +20,7 @@ const STORAGE_KEY = 'my_images';
 })
 export class UploadImagePage implements OnInit {
   images = [];
+  platform: any;
 
   constructor(private camera: Camera, private file: File, private http: HttpClient, private webview: WebView,
     private actionSheetController: ActionSheetController, private toastController: ToastController,
