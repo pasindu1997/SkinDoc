@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },  {
+  },
+  {
     path: 'cancer-updates',
     loadChildren: () => import('./cancer-updates/cancer-updates.module').then( m => m.CancerUpdatesPageModule)
   },
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: 'inquire-skin-clinic',
     loadChildren: () => import('./inquire-skin-clinic/inquire-skin-clinic.module').then( m => m.InquireSkinClinicPageModule)
   },
+
 
 ];
 
