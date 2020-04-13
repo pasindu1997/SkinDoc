@@ -8,6 +8,10 @@ const routes: Routes = [
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
+  {
+    path: 'upload-image',
+    loadChildren: () => import('./upload-image/upload-image.module').then( m => m.UploadImagePageModule)
+  },
 ];
 
 @NgModule({
