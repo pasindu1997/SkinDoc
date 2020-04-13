@@ -1,9 +1,70 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>inquire-skinClinic</ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-button>
+    <ion-title>Inquire Skin Clinic</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ loadedPlaces[0].title }}</ion-card-title>
+          </ion-card-header>
+          <ion-img [src]="loadedPlaces[0].imageUrl"></ion-img>
+          <ion-card-content>
+            <p>{{ loadedPlaces[0].description }}</p>
+            <br>
+            <p>{{loadedPlaces[0].address}}</p>
+            <p>{{loadedPlaces[0].phoneNumber}}</p>
+          </ion-card-content>
+          <div text-right>
+            <ion-button fill="clear" color= "primary" >Inquire</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ loadedPlaces[1].title }}</ion-card-title>
+          </ion-card-header>
+          <ion-img [src]="loadedPlaces[1].imageUrl"></ion-img>
+          <ion-card-content>
+            <p>{{ loadedPlaces[1].description }}</p>
+            <br>
+            <p>{{loadedPlaces[1].address}}</p>
+            <p>{{loadedPlaces[1].phoneNumber}}</p>
+          </ion-card-content>
+          <div text-right>
+            <ion-button fill="clear" color= "primary" >Inquire</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ loadedPlaces[2].title }}</ion-card-title>
+          </ion-card-header>
+          <ion-img [src]="loadedPlaces[2].imageUrl"></ion-img>
+          <ion-card-content>
+            <p>{{ loadedPlaces[2].description }}</p>
+            <br>
+            <p>{{loadedPlaces[2].address}}</p>
+            <p>{{loadedPlaces[2].phoneNumber}}</p>
+          </ion-card-content>
+          <div>
+            <ion-button fill="clear" color= "primary">Inquire</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
