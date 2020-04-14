@@ -198,7 +198,7 @@ async uploadImageData(formData: FormData) {
   });
   await loading.present();
 
-  this.http.post("http://localhost:8888/upload.php", formData)
+  this.http.post("http://localhost/uploads/upload.php", formData)
       .pipe(
           finalize(() => {
               loading.dismiss();
