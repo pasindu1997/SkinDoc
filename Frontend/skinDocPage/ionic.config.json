@@ -1,0 +1,8 @@
+{
+  "name": "skinDocPage",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
