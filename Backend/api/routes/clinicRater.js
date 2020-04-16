@@ -7,5 +7,5 @@ router.post('/rateclinic',(req,res,next) =>{
 });
 
 
-//this should work now
+//this should work
 
