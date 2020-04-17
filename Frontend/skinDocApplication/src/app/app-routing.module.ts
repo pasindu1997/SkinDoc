@@ -15,7 +15,11 @@ const routes: Routes = [
   {
     path: 'inquire-skin-clinic',
     loadChildren: () => import('./inquire-skin-clinic/inquire-skin-clinic.module').then( m => m.InquireSkinClinicPageModule)
+  },  {
+    path: 'clinic-rate',
+    loadChildren: () => import('./clinic-rate/clinic-rate.module').then( m => m.ClinicRatePageModule)
   },
+
 
 
 ];
