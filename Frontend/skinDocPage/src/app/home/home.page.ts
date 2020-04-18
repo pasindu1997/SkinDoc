@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {AuthConstants} from '../config/auth-constants';
 import {AuthService} from '../services/auth.service';
 import {StorageService} from '../services/storage.service';
+import {ToastService} from '../services/toast.service';
 
 @Component({
     selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomePage {
 
     constructor(private router: Router,
                 private authService: AuthService,
-                private storageService: StorageService) {
+                private storageService: StorageService,
+                private toastService: ToastService) {
     }
 
     validateInputs() {
@@ -37,17 +39,21 @@ export class HomePage {
             this.authService.login(this.postData).subscribe(
                 (res: any) => {
                     console.log(this.postData);
+
                     if (res.message) {
                         console.log(res.token);
                         // Storing the User data.
                         this.storageService.store(AuthConstants.AUTH, res.token);
-                        console.log(JSON.stringify(this.storageService.get('userData')));
-                        // this.router.navigate(['home/feed']);
+                        console.log(this.storageService.get('userData'));
+                        this.router.navigate(['cancer-updates']);
                     } else {
                         console.log('incorrect password.');
                     }
                 },
                 (error: any) => {
+                    if (error.status === 401) {
+                        this.toastService.presentToast('Invalid Credentials');
+                    }
                     if (error instanceof ErrorEvent) {
                         console.error('Client side error: ' , error.message);
                     } else {

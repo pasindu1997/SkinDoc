@@ -60,7 +60,7 @@ router.post('/login',(req,res,next)=>{
         .then(Users => {
             if (Users.length<1){
                 return res.status(401).json({
-                    message:"Auth failed"
+                    message:"not a user"
                 })
             }
             //checking whether the password is correct
