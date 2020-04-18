@@ -16,6 +16,8 @@ mongoose.Promise = global.Promise;
 const userRoutes = require('./api/routes/users');
 const imageRoutes = require('./api/routes/images');
 const Clinics = require('./api/routes/clinics');
+const Rates = require('./api/routes/rates');
+
 // const specific = require('./api/routes/clinics');
 
 //middleware
@@ -42,6 +44,7 @@ app.use((req, res, next) => {
 app.use('/users', userRoutes);
 app.use('/images', imageRoutes);
 app.use('/clinics', Clinics);
+app.use('/rates', Rates);
 
 
 //if there is no requests route the below
