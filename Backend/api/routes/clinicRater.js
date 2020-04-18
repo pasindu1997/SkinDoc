@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-router.post('/rateclinic',(req,res,next) =>{
+router.post('/rateclinic', () => {
 
 });
 
-
-//this should work
+module.exports = router;
 

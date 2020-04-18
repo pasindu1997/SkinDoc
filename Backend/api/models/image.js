@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const imageSchema = mongoose.Schema({
     _id : mongoose.Schema.Types.ObjectId,
@@ -9,4 +9,5 @@ const imageSchema = mongoose.Schema({
     prediction:{type:String,required:true},
     percentage:{type:Number,required:true}
 });
+
 module.exports = mongoose.model('image',imageSchema);

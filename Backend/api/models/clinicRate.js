@@ -1,11 +1,33 @@
 const mongoose = require('mongoose');
 
 
-let Post = mongoose.model('clinicRate', {
-    rating_count: Number,
-    comment: String,
-    commented_at: Date,
-    author: String
+const PostClinicsSchema = mongoose.Schema({
+    skinClinicName: {
+        type: String,
+        required: true
+    },
+
+
+    current_rating: {
+        type: Number,
+        required: true
+    },
+
+    comment: {
+        type: String,
+        required: false
+    },
+
+    commented_at: {
+        type: Date,
+        Default: Date.now(),
+        required: true
+    },
+
+    author: {
+        type: String,
+        required: false
+    }
 });
 
-module.exports = Post;
+module.exports = mongoose.model('Clinic', PostClinicsSchema);
