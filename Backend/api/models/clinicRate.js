@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 
 const PostClinicsSchema = mongoose.Schema({
+    // _id: mongoose.Schema.Types.ObjectId,
+
     skinClinicName: {
         type: String,
         required: true
@@ -27,7 +29,14 @@ const PostClinicsSchema = mongoose.Schema({
     author: {
         type: String,
         required: false
-    }
+    },
+
+    clinic_email: {
+        type: String,
+        required: true
+    },
+
+
 });
 
 module.exports = mongoose.model('Clinic', PostClinicsSchema);
