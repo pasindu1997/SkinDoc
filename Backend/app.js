@@ -4,11 +4,22 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://pasindu97:pasindu1997@cluster0-uheo1.mongodb.net/test?retryWrites=true&w=majority\n',{useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect('mongodb+srv://pasindu97:pasindu1997@cluster0-uheo1.mongodb.net/test?retryWrites=true&w=majority\n', {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true
+});
 mongoose.Promise = global.Promise;
 
+app.use(bodyParser.json());
+
+//Import routes
 const userRoutes = require('./api/routes/users');
 const imageRoutes = require('./api/routes/images');
+const showClinics = require('./api/routes/showclinics');
+
+//middleware
+app.use('/showclinics', showClinics);
 
 //this will make the upload file public which means this folder is publicly available
 app.use(express.static('uploads')); //hit http://localhost:3000/A%2016.jpg in browser
@@ -16,23 +27,24 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.use((req,res,next)=>{
-    res.header('Access-Control-Allow-Origin','*');
-    res.header('Access-Control-Allow-Headers','Origin,X-Requested-With,Content-Type,Accept,Authorization');
-    if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods','PUT, POST, PATCH, DELETE, GET');
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,Authorization');
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
         return res.status(200).json({});
     }
     next();
 });
 
 //routes which should handle request
-app.use('/users',userRoutes);
-app.use('/images',imageRoutes);
+app.use('/users', userRoutes);
+app.use('/images', imageRoutes);
+app.use('/showclinics', showClinics);
 
 
 //if there is no requests route the below
-app.use((req,res,next)=> {
+app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;
     next(error);
@@ -40,7 +52,7 @@ app.use((req,res,next)=> {
 
 });
 //if any kind of error throws(database errors) go to this
-app.use((error,req,res,next) =>{
+app.use((error, req, res) => {
     res.status(error.status || 500);
     res.json({
         error: {
