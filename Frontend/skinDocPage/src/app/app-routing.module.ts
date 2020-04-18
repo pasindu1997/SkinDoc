@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from './guards/auth.guard';
+import {HomeGuard} from './guards/home.guard';
 
 const routes: Routes = [
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)},
+    {path: '', redirectTo: 'login', pathMatch: 'full'},
+    {path: 'login', loadChildren: () => import('./login/home.module').then(m => m.HomePageModule)},
     {
         path: 'signup',
         loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule),
@@ -16,7 +16,8 @@ const routes: Routes = [
     },
     {
         path: 'cancer-updates',
-        loadChildren: () => import('./cancer-updates/cancer-updates.module').then(m => m.CancerUpdatesPageModule)
+        loadChildren: () => import('./cancer-updates/cancer-updates.module').then(m => m.CancerUpdatesPageModule),
+        canActivate : [HomeGuard]
     },
     {
         path: 'inquire-skin-clinic',
