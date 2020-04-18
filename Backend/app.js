@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+app.use(bodyParser.json());
 
 mongoose.connect('mongodb+srv://pasindu97:pasindu1997@cluster0-uheo1.mongodb.net/test?retryWrites=true&w=majority\n', {
     useUnifiedTopology: true,
@@ -11,15 +12,15 @@ mongoose.connect('mongodb+srv://pasindu97:pasindu1997@cluster0-uheo1.mongodb.net
 });
 mongoose.Promise = global.Promise;
 
-app.use(bodyParser.json());
-
 //Import routes
 const userRoutes = require('./api/routes/users');
 const imageRoutes = require('./api/routes/images');
-const showClinics = require('./api/routes/showclinics');
+const Clinics = require('./api/routes/clinics');
+// const specific = require('./api/routes/clinics');
 
 //middleware
-app.use('/showclinics', showClinics);
+app.use('/clinics', Clinics);
+app.use('/clinics/:clinicEmail', Clinics);
 
 //this will make the upload file public which means this folder is publicly available
 app.use(express.static('uploads')); //hit http://localhost:3000/A%2016.jpg in browser
@@ -40,7 +41,7 @@ app.use((req, res, next) => {
 //routes which should handle request
 app.use('/users', userRoutes);
 app.use('/images', imageRoutes);
-app.use('/showclinics', showClinics);
+app.use('/clinics', Clinics);
 
 
 //if there is no requests route the below
