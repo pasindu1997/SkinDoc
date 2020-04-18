@@ -3,6 +3,7 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeGuard} from './guards/home.guard';
 import {InquireSkinClinicGuard} from './guards/inquire-skin-clinic.guard';
 import {UploadImageGuard} from './guards/upload-image.guard';
+import {UserDataResolver} from "./resolver/userData.resolver";
 
 const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -20,7 +21,10 @@ const routes: Routes = [
     {
         path: 'cancer-updates',
         loadChildren: () => import('./cancer-updates/cancer-updates.module').then(m => m.CancerUpdatesPageModule),
-        canActivate : [HomeGuard]
+        canActivate : [HomeGuard],
+        resolve: {
+            userData : UserDataResolver
+        }
     },
     {
         path: 'inquire-skin-clinic',
