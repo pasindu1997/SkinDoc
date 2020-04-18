@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeGuard} from './guards/home.guard';
+import {InquireSkinClinicGuard} from './guards/inquire-skin-clinic.guard';
+import {UploadImageGuard} from './guards/upload-image.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -12,6 +14,7 @@ const routes: Routes = [
     {
         path: 'upload-image',
         loadChildren: () => import('./upload-image/upload-image.module').then(m => m.UploadImagePageModule),
+        canActivate: [UploadImageGuard]
 
     },
     {
@@ -21,7 +24,8 @@ const routes: Routes = [
     },
     {
         path: 'inquire-skin-clinic',
-        loadChildren: () => import('./inquire-skin-clinic/inquire-skin-clinic.module').then(m => m.InquireSkinClinicPageModule)
+        loadChildren: () => import('./inquire-skin-clinic/inquire-skin-clinic.module').then(m => m.InquireSkinClinicPageModule),
+        canActivate : [InquireSkinClinicGuard]
     },
 
 
