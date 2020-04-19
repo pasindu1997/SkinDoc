@@ -9,7 +9,8 @@ import {AuthConstants} from '../config/auth-constants';
   providedIn: 'root'
 })
 export class AuthService {
-  userData$ = new BehaviorSubject<any>([]);
+  userToken$ = new BehaviorSubject<any>([]);
+  userFirstName$ = new BehaviorSubject<any>([]);
   constructor(private httpService: HttpService,
               private storageService: StorageService,
               private router: Router) { }
@@ -24,14 +25,19 @@ export class AuthService {
 
   logout() {
     this.storageService.removeStorageItem(AuthConstants.AUTH).then(res => {
-      this.userData$.next('');
+      this.userToken$.next('');
       this.router.navigate(['/login']);
     });
   }
 
-  getUserData() {
+  getToken() {
     this.storageService.get(AuthConstants.AUTH).then(res => {
-      this.userData$.next(res);
+      this.userToken$.next(res);
+    });
+  }
+  getFirstName() {
+    this.storageService.get('firstName').then(res => {
+      this.userFirstName$.next(res);
     });
   }
 }

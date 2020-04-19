@@ -3,7 +3,8 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeGuard} from './guards/home.guard';
 import {InquireSkinClinicGuard} from './guards/inquire-skin-clinic.guard';
 import {UploadImageGuard} from './guards/upload-image.guard';
-import {UserDataResolver} from "./resolver/userData.resolver";
+import {UserTokenResolver} from "./resolver/userToken.resolver";
+import {UserFirstNameResolverResolver} from "./resolver/userFirstName.resolver";
 
 const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -15,7 +16,7 @@ const routes: Routes = [
     {
         path: 'upload-image',
         loadChildren: () => import('./upload-image/upload-image.module').then(m => m.UploadImagePageModule),
-        canActivate: [UploadImageGuard]
+        // canActivate: [UploadImageGuard]
 
     },
     {
@@ -23,7 +24,8 @@ const routes: Routes = [
         loadChildren: () => import('./cancer-updates/cancer-updates.module').then(m => m.CancerUpdatesPageModule),
         canActivate : [HomeGuard],
         resolve: {
-            userData : UserDataResolver
+            userToken : UserTokenResolver,
+            userFirstName : UserFirstNameResolverResolver
         }
     },
     {
