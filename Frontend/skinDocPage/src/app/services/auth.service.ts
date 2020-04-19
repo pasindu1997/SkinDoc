@@ -1,83 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
-import{JwtHelperService} from '@auth0/angular-jwt'; 
-import { Observable, BehaviorSubject, from } from 'rxjs';
-import{take,map,switchMap} from 'rxjs/operators';
-
-const helper=new JwtHelperService();
-const TOKEN_KEY='jwt-token';
+import {BehaviorSubject, Observable} from 'rxjs';
+import { HttpService } from './http.service';
+import { StorageService } from './storage.service';
+import {AuthConstants} from '../config/auth-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public user : Observable<any>;
-  private userData= new BehaviorSubject(null);
+  userData$ = new BehaviorSubject<any>([]);
+  constructor(private httpService: HttpService,
+              private storageService: StorageService,
+              private router: Router) { }
 
-  constructor(private storage: Storage,private http:HttpClient,
-    private plt:Platform , private router:Router) { 
+  login(postData: { password: string; email: string }): Observable<any> {
+    return this.httpService.post('login', postData);
+  }
 
-    }
+  signup(postData: any): Observable<any> {
+    return this.httpService.postSignUp('signup', postData);
+  }
 
-    loadStoredToken(){
-      let PlatformObs=from(this.plt.ready());
-      this.user=PlatformObs.pipe(
-          switchMap(() => {
-           return from (this.storage.get(TOKEN_KEY))
-          }),
-          map(token =>{
-            console.log('token from storage:' ,token);
-            if (token){
-            let decoded = helper.decodeToken();
-              console.log('decoded' ,decoded);
-              this.userData.next(decoded );
+  logout() {
+    this.storageService.removeStorageItem(AuthConstants.AUTH).then(res => {
+      this.userData$.next('');
+      this.router.navigate(['/login']);
+    });
+  }
 
-            }else{
-              return null;
-            }
-          })
-      );
-    }
-    login(Credentials:{email:String,pw:String }) :Observable<any> {
-      if(Credentials.email !=  'gayalhirushan80@gmail.com' || Credentials.pw != '123'){
-        return (null);
-      }
-
-      return this.http.get('https://randomuser.me/api/').pipe(
-        take(1),
-        map(res => {
-          return 'kvhsiovjiowkdfopdiasopDKqopfkcp[skDMjiq;ofc90oerpjhntkfm,bmcjoaspjcxipajidpowqifdpKOQDOPQWKCOWE[O';    
-        }),
-        switchMap(token =>{
-          let decoded = helper.decodeToken( token);
-          console.log(' logi decoded' ,decoded);
-          this.userData.next(decoded );
-
-          this.storage.set(TOKEN_KEY,token)
-          return DataCue;
-
-          let storageObs= from (this.storage.set(TOKEN_KEY,token));
-          return storageObs;
-
-        })
-
-      );
-
-      
-    }
-    getUser(){
-      return  this.userData.getValue();
-
-    }
-    logout(){
-      this.storage.remove(TOKEN_KEY).then (() =>{
-        this.router.navigateByUrl('/');
-        this.userData.next(null);
-
-      });
-    }
-
-
+  getUserData() {
+    this.storageService.get(AuthConstants.AUTH).then(res => {
+      this.userData$.next(res);
+    });
+  }
 }
