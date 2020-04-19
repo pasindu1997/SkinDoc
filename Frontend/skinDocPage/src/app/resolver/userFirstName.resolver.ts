@@ -4,11 +4,12 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
     providedIn: 'root'
 })
-export class UserDataResolver {
+export class UserFirstNameResolverResolver {
     constructor(private authService: AuthService) {}
 
     resolve() {
         console.log('calls at home route');
-        return this.authService.getUserData();
+        return this.authService.getFirstName();
     }
+
 }
