@@ -4,6 +4,8 @@ const router = express.Router();
 // const bodyParser = require('body-parser');
 require('dotenv/config');
 const Clinic = require('../models/clinicRate');
+// const Rate = require('../models/rate');
+
 // let app = express();
 
 //TO CREATE A CLINIC ON THE DATABASE
@@ -17,7 +19,6 @@ router.post('/', async (req, res) => {
         comment: req.body.comment,
         commented_at: req.body.commented_at,
         author: req.body.author
-
     });
     // }catch (err) {
     //     res.json({message: err});
@@ -57,8 +58,9 @@ router.get('/:_id', async (req, res) => {
 });
 
 
-//To update the rating of the clinics, use this route
-//To delete a clinic, use this route
+//TO UPDATE THE RATING OF A CLINIC
+
+
 //To inquire a clinic, use this route
 
 
@@ -92,5 +94,35 @@ router.get('/:_id', async (req, res) => {
 
 // });
 
+// //TO RATE A CLINIC
+// router.post('/rate/:_id', async (req, res) => {
+//
+//     try {
+//         const specificClinic = await Clinic.findById(req.params._id);
+//         console.log(specificClinic);
+//         // const clinicRelated = await Clinic.findById(specificClinic.clinic_email);
+//         // DBObject dbObject = DBObject JSON.parse(clinicRelated);
+//         // const clinicRelated = await Clinic.findById({specificClinic.clinic_email}).toArray(function(err, result){
+//         // });
+//         // console.log(clinicRelated);
+//     const rate = new Rate({
+//         // clinicId: Clinic.findById(req.params._id),
+//         clinicId: specificClinic.clinic_email,
+//         rate_given: req.body.rate_given,
+//         comment: req.body.comment,
+//         commented_at: req.body.commented_at,
+//         author: req.body.author
+//     });
+//     try {
+//         const savedRates = await rate.save();
+//         res.json(savedRates);
+//         console.log('Clinic has been rated.');
+//     } catch (err) {
+//         res.json({message: err});
+//     }
+//     } catch (err) {
+//         res.json(err);
+//     }
+// });
 
 module.exports = router;
