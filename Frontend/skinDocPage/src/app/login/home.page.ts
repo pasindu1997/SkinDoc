@@ -44,7 +44,12 @@ export class HomePage {
                         console.log(res.token);
                         // Storing the User data.
                         this.storageService.store(AuthConstants.AUTH, res.token);
-                        console.log(this.storageService.get('userData'));
+                        this.storageService.store('firstName', res.userDetails.firstName);
+                        this.storageService.store('lastName', res.userDetails.lastName);
+                        this.storageService.store('age', res.userDetails.age);
+                        this.storageService.store('contactNo', res.userDetails.contactNo);
+                        this.storageService.store('email', res.userDetails.email);
+                        console.log(this.storageService.get('firstName'));
                         this.router.navigate(['cancer-updates']);
                     } else {
                         console.log('incorrect password.');
