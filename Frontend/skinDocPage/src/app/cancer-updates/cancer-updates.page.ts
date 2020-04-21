@@ -10,6 +10,10 @@ import {AuthService} from '../services/auth.service';
 export class CancerUpdatesPage implements OnInit {
     public userToken: any;
     public userFirstName: any;
+    public userLastName: any;
+    public userAge: any;
+    public userContactNo: any;
+    public userEmail: any;
 
     constructor(private router: Router, private auth: AuthService) {
     }
@@ -23,6 +27,23 @@ export class CancerUpdatesPage implements OnInit {
         this.auth.userFirstName$.subscribe((res: any) => {
             this.userFirstName = res;
             console.log(this.userFirstName);
+        });
+        this.auth.userLastName$.subscribe((res: any) => {
+            this.userLastName = res;
+            console.log(this.userLastName);
+        });
+        this.auth.userAge$.subscribe((res: any) => {
+            this.userAge = res;
+            console.log(this.userAge);
+        });
+
+        this.auth.userContactNo$.subscribe((res: any) => {
+            this.userContactNo = res;
+            console.log(this.userContactNo);
+        });
+        this.auth.userEmail$.subscribe((res: any) => {
+            this.userEmail = res;
+            console.log(this.userEmail);
         });
     }
 

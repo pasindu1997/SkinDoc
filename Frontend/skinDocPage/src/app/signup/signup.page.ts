@@ -31,7 +31,7 @@ export class SignupPage implements OnInit {
           this.toastService.presentToast('A field is empty. Only contact no is optional');
         } else {
           if (this.signUpdata.password === this.signUpdata.confirmPassword) {
-            this.authService.signup(this.signUpdata).subscribe(
+            this.authService.signup(this.signUpdata).then(
                 (res: any) => {
                   this.router.navigate(['login']);
                   this.toastService.presentToast('You are registered. Please login with your credentials');

@@ -8,17 +8,33 @@
 
 <ion-content padding class="card-background-page">
 
-  <ion-button expand="full" color="secondary" (click)="takePhoto()"><ion-icon name="camera"></ion-icon>Take Photo</ion-button>
+  <ion-button expand="full" color="secondary" (click)="selectImage()"><ion-icon name="camera"></ion-icon>Take Photo</ion-button>
+
 
   <ion-grid>
-    <ion-row>
-      <ion-col col-6 *ngFor="let photo of photos; let id = index">
-        <ion-card class="block">
-          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-          <img [src]="photo" *ngIf="photo" />
-        </ion-card>
-      </ion-col>
-    </ion-row>
+    <ion-list>
+<!--      <ion-col col-6 *ngFor="let photo of photos; let id = index">-->
+      <ion-item *ngFor="let photo of photos; let id = index">
+        <ion-thumbnail style="width: 150px; height: 150px" class="block" slot="start">
+         <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+         <ion-icon name="cloud-upload" style="margin-left: 10px;" (click)="deletePhoto(id)"></ion-icon>
+         <img [src]="photo" *ngIf="photo" />
+          <!-- <img src="background.jpg"/> -->
+        </ion-thumbnail>
+        <ion-list>
+          <ion-item>
+            Prediction: {{prediction}}
+          </ion-item>
+          <ion-item>
+            Accuracy: {{accuracy}}
+          </ion-item>
+        </ion-list>
+        
+
+<!--        <ion-label>{{img.name}}</ion-label>-->
+      </ion-item>
+
+    </ion-list>
   </ion-grid>
 
 </ion-content>
