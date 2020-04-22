@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {InquireSkinClinicService} from './inquire-skin-clinic.service';
 import { HttpService } from '../services/http.service';
 import { ToastService } from '../services/toast.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-inquire-skin-clinic',
@@ -10,8 +11,13 @@ import { ToastService } from '../services/toast.service';
 })
 export class InquireSkinClinicPage implements OnInit {
   clinics = [];
+  images=[];
 
-  constructor(private placesService: InquireSkinClinicService, private httpService:HttpService,private toastService: ToastService) { 
+  public userDetails = {
+    userFirstName: null, userLastName: null, userAge: null, userContactNo: null, userEmail: null
+  }
+
+  constructor(private placesService: InquireSkinClinicService, private httpService:HttpService,private toastService: ToastService,private authService: AuthService) { 
     this.httpService.getClinics().then((res) => {
       this.clinics = JSON.parse( res.data);
     }),(err)=>{
@@ -20,12 +26,37 @@ export class InquireSkinClinicPage implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.userFirstName$.subscribe((res: any) => {
+      this.userDetails.userFirstName = res;
 
+     });
+    this.authService.userLastName$.subscribe((res: any) => {
+        this.userDetails.userLastName = res;
+
+    });
+    this.authService.userAge$.subscribe((res: any) => {
+        this.userDetails.userAge = parseInt(res) ;
+
+    });
+
+    this.authService.userContactNo$.subscribe((res: any) => {
+        this.userDetails.userContactNo = parseInt(res);
+
+    });
+    this.authService.userEmail$.subscribe((res: any) => {
+        this.userDetails.userEmail = res;
+
+    });
   }
 
   inquireClinic(index){
-    // this.toastService.presentToast(index);
-    this.toastService.presentToast(this.clinics[index].skinClinicName);
+    this.httpService.getImages(this.userDetails.userEmail).then((res) => {
+      this.images = JSON.parse(res.data) ;
+    });
+
+    this.httpService.sendEmail(this.clinics[index].clinic_email,this.userDetails,this.images).then((res) =>{
+      this.toastService.presentToast(JSON.stringify(JSON.parse(res.data).message));
+    });
     
   }
 

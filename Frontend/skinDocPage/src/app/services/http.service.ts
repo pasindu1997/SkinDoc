@@ -69,4 +69,9 @@ export class HttpService {
     return this.http.post(url,{imageName:imageName},{});
   }
 
+  sendEmail(clinicEmail,userDetils,imageDetails){
+    const url = 'http://192.168.1.100:3000/clinics/sendEmail';
+    return this.http.post(url, {clinic_email: clinicEmail, user_details: userDetils, image_details: imageDetails} , {});
+  }
+
 }

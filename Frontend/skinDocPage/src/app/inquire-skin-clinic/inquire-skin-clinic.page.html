@@ -10,14 +10,16 @@
 <ion-content padding>
   <ion-card *ngFor="let clinic of clinics;let id = index">
         <ion-card-header>
-          <ion-card-subtitle>Destination</ion-card-subtitle>
-          <ion-card-title>Madison, WI</ion-card-title>
+          <ion-card-title>{{clinic.skinClinicName}}</ion-card-title>
+          <ion-card-subtitle>{{clinic.address}}</ion-card-subtitle>
+          <ion-card-subtitle>Rating: {{clinic.current_rating}} Stars / 5 Stars</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-          
-          <ion-button color="warning" (click)="inquireClinic(id)" round>Inquire This Clinic</ion-button>
+          {{clinic.description}}
         </ion-card-content>
+        <ion-item>
+          <ion-button color="warning" (click)="inquireClinic(id)" round>Inquire This Clinic</ion-button>
+        </ion-item>
         
   </ion-card>
   
