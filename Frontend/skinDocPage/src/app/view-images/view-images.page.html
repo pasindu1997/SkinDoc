@@ -9,7 +9,7 @@
     
     <ion-list>
   <!--      <ion-col col-6 *ngFor="let photo of photos; let id = index">-->
-      <ion-item *ngFor="let photo of images;">
+      <ion-item *ngFor="let photo of images;  let id = index">
         <ion-thumbnail style="width: 150px; height: 150px" class="block" slot="start">
         
           <img src="http://192.168.1.100:3000/{{photo.image}}"/>
@@ -22,6 +22,10 @@
           <ion-item>
             Accuracy: {{photo.percentage}}
           </ion-item>
+          <ion-item>
+            <ion-icon name="trash" class="deleteIcon" (click)="imageDelete(id)"></ion-icon>
+          </ion-item>
+          
 
         </ion-list>
         

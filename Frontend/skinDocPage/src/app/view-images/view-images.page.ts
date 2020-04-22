@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import {AuthService} from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
+import {AlertController, NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-view-images',
@@ -15,7 +16,7 @@ export class ViewImagesPage implements OnInit {
   imagePath;
   photo = {path:""}
 
-  constructor(private httpService: HttpService,private authService: AuthService, private toastService: ToastService) {
+  constructor(private httpService: HttpService,private authService: AuthService, private toastService: ToastService,private alertCtrl: AlertController) {
    }
 
   ngOnInit() {
@@ -23,9 +24,7 @@ export class ViewImagesPage implements OnInit {
     
     
   }
-  clicked(){
-    this.toastService.presentToast(this.photo.path);
-  }
+
   buttonReload(){
     this.images=[];
     this.authService.userEmail$.subscribe((res: any) => {
@@ -42,11 +41,31 @@ export class ViewImagesPage implements OnInit {
     })
 
   }
-  imageDelete(imageName){
-    this.httpService.deleteImage(imageName).then((res) => {
-      this.toastService.presentToast('Image Successfully deleted');
-    })
-    this.buttonReload();
+
+  async imageDelete(index){
+    const confirm = await this.alertCtrl.create({
+            message: 'Sure you want to delete this photo? There is NO undo!',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('Disagree clicked');
+                    }
+                }, {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Agree clicked');
+                        this.toastService.presentToast(this.images[index].image);
+                        this.httpService.deleteImage(this.images[index].image).then((res) => {
+                          this.toastService.presentToast('Image Successfully Deleted');
+                        })
+                        this.buttonReload();
+                    }
+                }
+            ]
+        });
+        await confirm.present();
+
   }
 
 

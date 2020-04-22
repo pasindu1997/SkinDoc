@@ -78,7 +78,6 @@ router.post('/',upload.single('image'),(req,res,next)=>{
 });
 
 router.post('/findImage',(req,res,next)=>{
-    const NIC = req.body.NIC;
     Image.find({'email':req.body.email})
         .select('image firstName lastName age contactNo email prediction percentage')
         .exec()
@@ -99,6 +98,38 @@ router.post('/findImage',(req,res,next)=>{
             });
         })
 });
+
+router.post('/deleteImage',(req,res,next) => {
+    Image.find({image:req.body.imageName}).exec().then((result) => {
+        
+        if (!result){
+            res.status(404).json({
+                messgae: "Image not found"
+            })
+        }else{
+            console.log(req.body.imageName);
+            console.log(result[0].image);
+            Image.deleteOne({image : result[0].image})
+                .exec()
+                .then(deletedUser => {
+                    res.status(200).json({
+                        message: "The Image has been deleted",
+                        userDeleted: deletedUser
+                    })
+                })
+                .catch(err => {
+                    res.status(409).json({
+                        message: err
+                    })
+                });
+        }
+    }).catch(err => {
+        res.status(409).json({
+            message:err
+        })
+    });
+});
+
 
 
 
