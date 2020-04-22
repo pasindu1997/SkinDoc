@@ -9,38 +9,40 @@ const Clinic = require('../models/clinicRate');
 // let app = express();
 
 //TO CREATE A CLINIC ON THE DATABASE
-router.post('/', async (req, res) => {
-    // console.log(req.body);
+router.post('/',(req, res) => {
+    console.log(req.body);
     // try {
     const clinic = new Clinic({
         clinic_email: req.body.clinic_email,
         skinClinicName: req.body.skinClinicName,
         current_rating: req.body.current_rating,
-        comment: req.body.comment,
-        commented_at: req.body.commented_at,
-        author: req.body.author
+        description: req.body.description,
+        address: req.body.address
+    });
+
+    clinic.save().then((result)=>{
+        res.status(200).json({
+            message: "clinic inserted"
+        })
     });
     // }catch (err) {
     //     res.json({message: err});
     // }
-    try {
-        const savedClinics = await clinic.save();
-        res.json(savedClinics);
-        console.log('Clinic created on the Data base');
-    } catch (err) {
-        res.json({message: err});
-    }
+    // try {
+    //     const savedClinics = await clinic.save();
+    //     res.json(savedClinics);
+    //     console.log('Clinic created on the Data base');
+    // } catch (err) {
+    //     res.json({message: err});
+    // }
 });
 
 
 //TO VIEW ALL THE CLINICS AVAILABLE ON THE DATABASE
 router.get('/', async (req, res) => {
-    try {
-        const clinics = await Clinic.find();
-        res.json(clinics);
-    } catch (err) {
-        res.json({message: err});
-    }
+    Clinic.find().select('clinic_email skinClinicName current_rating description address').exec().then(result => {
+        res.status(200).send(result)
+    });
 });
 
 //TO VIEW AN SPECIFIC CLINIC ON THE DATABASE

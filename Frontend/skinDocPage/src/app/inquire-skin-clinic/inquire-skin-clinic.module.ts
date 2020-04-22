@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { InquireSkinClinicPageRoutingModule } from './inquire-skin-clinic-routing.module';
 
 import { InquireSkinClinicPage } from './inquire-skin-clinic.page';
+import { setIonicClasses } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InquireSkinClinicPageRoutingModule
+    InquireSkinClinicPageRoutingModule,
   ],
   declarations: [InquireSkinClinicPage]
 })

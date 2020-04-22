@@ -36,7 +36,7 @@ const upload = multer({
 
 });
 
-router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
+router.post('/',upload.single('image'),(req,res,next)=>{
     console.log(req.file);
     const name = req.file.originalname;
     const api = `http://127.0.0.1:5000/flask/predict?filename=${name}`;
@@ -48,7 +48,9 @@ router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
                 image: req.file.originalname,
                 firstName: req.body.firstName,
                 lastName:req.body.lastName,
-                NIC: req.body.NIC,
+                age: req.body.age,
+                contactNo: req.body.contactNo,
+                email: req.body.email,
                 prediction: json['Prediction'],
                 percentage: json['Probability']
             });
@@ -59,7 +61,8 @@ router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
                 res.status(200).json({
                     message: 'Image successfully uploaded',
                     created: {
-                        NIC: result.NIC,
+                        prediction: result.prediction,
+                        percentage: result.percentage
                     }
                 });
             })
@@ -74,10 +77,10 @@ router.post('/',checkAuth,upload.single('image'),(req,res,next)=>{
 
 });
 
-router.get('/',(req,res,next)=>{
+router.post('/findImage',(req,res,next)=>{
     const NIC = req.body.NIC;
-    Image.find({'NIC':NIC})
-        .select('image firstName lastName NIC prediction percentage')
+    Image.find({'email':req.body.email})
+        .select('image firstName lastName age contactNo email prediction percentage')
         .exec()
         .then(result => {
             console.log("this is from database",result);

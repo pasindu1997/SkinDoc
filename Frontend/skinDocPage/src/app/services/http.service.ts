@@ -14,7 +14,7 @@ export class HttpService {
 
   post(serviceName: string, data: any) {
 
-    const url = 'http://192.168.1.101:3000/users/' + serviceName;
+    const url = 'http://192.168.1.100:3000/users/' + serviceName;
     console.log(url);
     
     return this.http.post(url, {email : data.email, password : data.password} , {});
@@ -22,7 +22,7 @@ export class HttpService {
 
 
   uploadFile(img,imageDetails){
-    const url = 'http://192.168.1.101:3000/images';
+    const url = 'http://192.168.1.100:3000/images';
 
     var random = Math.floor(Math.random()*100);
 
@@ -49,19 +49,23 @@ export class HttpService {
 
 
   postSignUp(serviceName: string, data: any) {
-    const url = 'http://192.168.1.101:3000/users/' + serviceName;
+    const url = 'http://192.168.1.100:3000/users/' + serviceName;
     console.log(url);
     // tslint:disable-next-line:max-line-length
     return this.http.post(url, {firstName : data.firstName, lastName : data.lastName, age : data.age, contactNo : data.contactNo, email : data.email, password : data.password} , {});
   }
 
   getImages(userEmail:String){
-    const url = 'http://192.168.1.101:3000/images/findImage';
+    const url = 'http://192.168.1.100:3000/images/findImage';
     return this.http.post(url, {email: userEmail} , {});
+  }
+  getClinics(){
+    const url = 'http://192.168.1.100:3000/clinics';
+    return this.http.get(url, {} , {});
   }
 
   deleteImage(imageName:any){
-    const url = 'http://192.168.1.101:3000/images/deleteImage';
+    const url = 'http://192.168.1.100:3000/images/deleteImage';
     return this.http.post(url,{imageName:imageName},{});
   }
 

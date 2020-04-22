@@ -16,8 +16,8 @@ const Rates = require('./api/routes/rates');
 // const specific = require('./api/routes/clinics');
 
 //middleware
-app.use('/clinics', Clinics);
-app.use('/clinics/:clinicEmail', Clinics);
+// app.use('/clinics', Clinics);
+// app.use('/clinics/:clinicEmail', Clinics);
 
 
 //this will make the upload file public which means this folder is publicly available

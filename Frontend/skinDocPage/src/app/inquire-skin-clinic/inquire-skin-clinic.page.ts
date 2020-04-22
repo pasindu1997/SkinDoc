@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {InquireSkinClinicService} from './inquire-skin-clinic.service';
-import {skinClinic} from './skinClinic.model';
+import { HttpService } from '../services/http.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-inquire-skin-clinic',
@@ -8,12 +9,25 @@ import {skinClinic} from './skinClinic.model';
   styleUrls: ['./inquire-skin-clinic.page.scss'],
 })
 export class InquireSkinClinicPage implements OnInit {
-  loadedPlaces: skinClinic[];
+  clinics = [];
 
-  constructor(private placesService: InquireSkinClinicService) { }
+  constructor(private placesService: InquireSkinClinicService, private httpService:HttpService,private toastService: ToastService) { 
+    this.httpService.getClinics().then((res) => {
+      this.clinics = JSON.parse( res.data);
+    }),(err)=>{
+      this.toastService.presentToast("A error has been occured");
+    }
+  }
 
   ngOnInit() {
-    this.loadedPlaces = this.placesService.clinics;
+
   }
+
+  inquireClinic(index){
+    // this.toastService.presentToast(index);
+    this.toastService.presentToast(this.clinics[index].skinClinicName);
+    
+  }
+
 
 }

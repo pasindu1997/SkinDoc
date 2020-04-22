@@ -5,7 +5,9 @@ const imageSchema = mongoose.Schema({
     image : {type:String, required:true},
     firstName : {type: String, required: false},
     lastName : {type: String, required: false},
-    NIC : {type: Number, required: true},
+    age : {type: Number, required: true},
+    contactNo : {type: Number, required: true},
+    email : {type: String, required: true},
     prediction:{type:String,required:true},
     percentage:{type:Number,required:true}
 });
