@@ -9,12 +9,13 @@ import { File } from '@ionic-native/file/ngx';
   providedIn: 'root'
 })
 export class HttpService {
+  private BASE_URL = 'http://192.168.1.101:3000';
 
   constructor(private http: HTTP, private fileTransfer:FileTransfer, private file: File) { }
 
   post(serviceName: string, data: any) {
 
-    const url = 'http://192.168.1.100:3000/users/' + serviceName;
+    const url = this.BASE_URL + '/users/' + serviceName;
     console.log(url);
     
     return this.http.post(url, {email : data.email, password : data.password} , {});
@@ -22,7 +23,7 @@ export class HttpService {
 
 
   uploadFile(img,imageDetails){
-    const url = 'http://192.168.1.100:3000/images';
+    const url = this.BASE_URL + '/images';
 
     var random = Math.floor(Math.random()*100);
 
@@ -49,29 +50,38 @@ export class HttpService {
 
 
   postSignUp(serviceName: string, data: any) {
-    const url = 'http://192.168.1.100:3000/users/' + serviceName;
+    const url = this.BASE_URL + '/users/' + serviceName;
     console.log(url);
     // tslint:disable-next-line:max-line-length
     return this.http.post(url, {firstName : data.firstName, lastName : data.lastName, age : data.age, contactNo : data.contactNo, email : data.email, password : data.password} , {});
   }
 
   getImages(userEmail:String){
-    const url = 'http://192.168.1.100:3000/images/findImage';
+    const url = this.BASE_URL + '/images/findImage';
     return this.http.post(url, {email: userEmail} , {});
   }
   getClinics(){
-    const url = 'http://192.168.1.100:3000/clinics';
+    const url = this.BASE_URL +'/clinics';
     return this.http.get(url, {} , {});
   }
 
   deleteImage(imageName:any){
-    const url = 'http://192.168.1.100:3000/images/deleteImage';
+    const url = this.BASE_URL + '/images/deleteImage';
     return this.http.post(url,{imageName:imageName},{});
   }
 
   sendEmail(clinicEmail,userDetils,imageDetails){
-    const url = 'http://192.168.1.100:3000/clinics/sendEmail';
+    const url = this.BASE_URL + '/clinics/sendEmail';
     return this.http.post(url, {clinic_email: clinicEmail, user_details: userDetils, image_details: imageDetails} , {});
   }
 
+  getRate(clinicEmail){
+    const url = this.BASE_URL + '/rates';
+    return this.http.post(url,{clinic_email:clinicEmail},{})
+  }
+  
+  postRates(clinicEmail,comment,author,rate_given){
+    const url = this.BASE_URL + '/rates/postReview';
+    return this.http.post(url,{clinic_email: clinicEmail,rate_given: rate_given, comment: comment,author: author},{});
+  }
 }
