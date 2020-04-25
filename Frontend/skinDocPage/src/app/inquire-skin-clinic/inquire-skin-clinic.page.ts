@@ -3,6 +3,8 @@ import {InquireSkinClinicService} from './inquire-skin-clinic.service';
 import { HttpService } from '../services/http.service';
 import { ToastService } from '../services/toast.service';
 import {AuthService} from '../services/auth.service';
+import {Router, NavigationExtras} from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inquire-skin-clinic',
@@ -17,7 +19,7 @@ export class InquireSkinClinicPage implements OnInit {
     userFirstName: null, userLastName: null, userAge: null, userContactNo: null, userEmail: null
   }
 
-  constructor(private placesService: InquireSkinClinicService, private httpService:HttpService,private toastService: ToastService,private authService: AuthService) { 
+  constructor(private alertCtrl: AlertController,private router: Router,private placesService: InquireSkinClinicService, private httpService:HttpService,private toastService: ToastService,private authService: AuthService) { 
     this.httpService.getClinics().then((res) => {
       this.clinics = JSON.parse( res.data);
     }),(err)=>{
@@ -49,6 +51,27 @@ export class InquireSkinClinicPage implements OnInit {
     });
   }
 
+  async inquireSkinClinicPrompt(index){
+    const confirm = await this.alertCtrl.create({
+            message: 'Do you agree to get treatments from this clinic?',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('Disagree clicked');
+                    }
+                }, {
+                    text: 'Yes',
+                    handler: () => {
+                      this.inquireClinic(index)
+                    }
+                }
+            ]
+        });
+        await confirm.present();
+
+  }
+
   inquireClinic(index){
     this.httpService.getImages(this.userDetails.userEmail).then((res) => {
       this.images = JSON.parse(res.data) ;
@@ -59,6 +82,17 @@ export class InquireSkinClinicPage implements OnInit {
     });
     
   }
+
+  ratesPage(index) {
+    
+    let navigationExtras: NavigationExtras = {
+      state: {
+        clinic_email: this.clinics[index].clinic_email
+      }
+    }
+    this.router.navigate(['/inquire-skin-clinic/rates'],navigationExtras);
+  }
+
 
 
 }
