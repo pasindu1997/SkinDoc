@@ -9,6 +9,7 @@ import {UserLastNameResolver} from "./resolver/userLastName.resolver";
 import {UserAgeResolver} from "./resolver/userAge.resolver";
 import {UserContactNoResolver} from "./resolver/userContactNo.resolver";
 import {UserEmailResolver} from "./resolver/userEmail.resolver";
+import { ViewImageGuard } from './guards/view-image.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
     {
         path: 'view-images',
         loadChildren: () => import('./view-images/view-images.module').then(m => m.ViewImagesPageModule),
+        canActivate: [ViewImageGuard],
         resolve: {
             userToken : UserTokenResolver,
             userFirstName : UserFirstNameResolver,
@@ -35,7 +37,7 @@ const routes: Routes = [
     {
         path: 'upload-image',
         loadChildren: () => import('./upload-image/upload-image.module').then(m => m.UploadImagePageModule),
-        // canActivate: [UploadImageGuard]
+        canActivate: [UploadImageGuard],
         resolve: {
             userToken : UserTokenResolver,
             userFirstName : UserFirstNameResolver,
@@ -66,12 +68,9 @@ const routes: Routes = [
     {
         path: 'inquire-skin-clinic',
         loadChildren: () => import('./inquire-skin-clinic/inquire-skin-clinic.module').then(m => m.InquireSkinClinicPageModule),
-        // canActivate : [InquireSkinClinicGuard]
+        canActivate : [InquireSkinClinicGuard]
     },
-  {
-    path: 'view-images',
-    loadChildren: () => import('./view-images/view-images.module').then( m => m.ViewImagesPageModule)
-  },
+
 
 
 ];
