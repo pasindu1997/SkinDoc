@@ -1,8 +1,0 @@
-{
-  "appId": "io.ionic.genesis",
-  "appName": "skinDocPage",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "cordova": {}
-}

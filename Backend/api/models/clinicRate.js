@@ -15,18 +15,13 @@ const PostClinicsSchema = mongoose.Schema({
         required: true
     },
 
-    comment: {
+    description: {
         type: String,
         required: false
     },
 
-    commented_at: {
-        type: Date,
-        Default: Date.now(),
-        required: true
-    },
 
-    author: {
+    address: {
         type: String,
         required: false
     },

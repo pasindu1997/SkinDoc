@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: InquireSkinClinicPage
+  },  {
+    path: 'rates',
+    loadChildren: () => import('./rates/rates.module').then( m => m.RatesPageModule)
   }
+
 ];
 
 @NgModule({

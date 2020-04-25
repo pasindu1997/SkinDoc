@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const nodemailer = require('nodemailer');
 // const mongoose = require('mongoose');
 // const bodyParser = require('body-parser');
 require('dotenv/config');
@@ -9,38 +10,40 @@ const Clinic = require('../models/clinicRate');
 // let app = express();
 
 //TO CREATE A CLINIC ON THE DATABASE
-router.post('/', async (req, res) => {
-    // console.log(req.body);
+router.post('/',(req, res) => {
+    console.log(req.body);
     // try {
     const clinic = new Clinic({
         clinic_email: req.body.clinic_email,
         skinClinicName: req.body.skinClinicName,
         current_rating: req.body.current_rating,
-        comment: req.body.comment,
-        commented_at: req.body.commented_at,
-        author: req.body.author
+        description: req.body.description,
+        address: req.body.address
+    });
+
+    clinic.save().then((result)=>{
+        res.status(200).json({
+            message: "clinic inserted"
+        })
     });
     // }catch (err) {
     //     res.json({message: err});
     // }
-    try {
-        const savedClinics = await clinic.save();
-        res.json(savedClinics);
-        console.log('Clinic created on the Data base');
-    } catch (err) {
-        res.json({message: err});
-    }
+    // try {
+    //     const savedClinics = await clinic.save();
+    //     res.json(savedClinics);
+    //     console.log('Clinic created on the Data base');
+    // } catch (err) {
+    //     res.json({message: err});
+    // }
 });
 
 
 //TO VIEW ALL THE CLINICS AVAILABLE ON THE DATABASE
 router.get('/', async (req, res) => {
-    try {
-        const clinics = await Clinic.find();
-        res.json(clinics);
-    } catch (err) {
-        res.json({message: err});
-    }
+    Clinic.find().select('clinic_email skinClinicName current_rating description address').exec().then(result => {
+        res.status(200).send(result)
+    });
 });
 
 //TO VIEW AN SPECIFIC CLINIC ON THE DATABASE
@@ -55,6 +58,39 @@ router.get('/:_id', async (req, res) => {
         res.json({message: err});
     }
 
+});
+//skin clinic inquire.sending the email to the skin clinic  
+router.post('/sendEmail', async (req, res) => {
+    const clinicEmail = req.body.clinic_email;
+    const userDetails = req.body.user_details;
+    const imageDetails = req.body.image_details;
+    
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth:{
+            user:'pasindu.2018097@iit.ac.lk',
+            pass: 'Chithra1997',
+        }
+    });
+
+    var mailOption = {
+        from: 'pasindu.2018097@iit.ac.lk',
+        to: clinicEmail,
+        subject: 'Infomation about a patient from SkinDoc Application',
+        html: `<h1>SkinDoc Application</h1>
+                <h2>user's details</h2>
+                <p>`+ userDetails+`</p>
+                <h2>user's image details</h2>
+                <p>`+ imageDetails+`</p>`
+    };
+
+    transporter.sendMail(mailOption).then(result =>{
+        res.status(200).json({
+            message: 'The clinic will contact you Within 24 hours',
+        });
+    }).catch(err=>{
+        console.log(err);
+    });
 });
 
 

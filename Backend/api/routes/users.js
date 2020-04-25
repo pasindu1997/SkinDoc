@@ -71,9 +71,18 @@ router.post('/login',(req,res,next)=>{
                 }, process.env.JWT_KEY,{
                     expiresIn: "1h"
                 });
+                const user = {
+                  firstName: Users[0].firstName,
+                  lastName: Users[0].lastName,
+                  age: Users[0].age,
+                  contactNo: Users[0].contactNo,
+                  email: Users[0].email,
+
+                };
                 return res.status(200).json({
                     message: 'Auth successful',
-                    token: token
+                    token: token,
+                    userDetails: user
                 })
             }else{
                 return res.status(401).json({

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthConstants} from '../config/auth-constants';
-import {AuthService} from '../services/auth.service';
-import {StorageService} from '../services/storage.service';
-import {ToastService} from '../services/toast.service';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthConstants } from '../config/auth-constants';
+import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
     selector: 'app-home',
@@ -11,15 +11,16 @@ import {ToastService} from '../services/toast.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+    reqobj: any = null;
     postData = {
         email: '',
         password: ''
     };
 
     constructor(private router: Router,
-                private authService: AuthService,
-                private storageService: StorageService,
-                private toastService: ToastService) {
+        private authService: AuthService,
+        private storageService: StorageService,
+        private toastService: ToastService) {
     }
 
     validateInputs() {
@@ -36,33 +37,23 @@ export class HomePage {
     loginAction() {
         if (this.validateInputs()) {
 
-            this.authService.login(this.postData).subscribe(
-                (res: any) => {
-                    console.log(this.postData);
+            this.authService.login(this.postData).then(res => {
 
-                    if (res.message) {
-                        console.log(res.token);
-                        // Storing the User data.
-                        this.storageService.store(AuthConstants.AUTH, res.token);
-                        console.log(this.storageService.get('userData'));
-                        this.router.navigate(['cancer-updates']);
-                    } else {
-                        console.log('incorrect password.');
-                    }
-                },
-                (error: any) => {
-                    if (error.status === 401) {
-                        this.toastService.presentToast('Invalid Credentials');
-                    }
-                    if (error instanceof ErrorEvent) {
-                        console.error('Client side error: ' , error.message);
-                    } else {
-                        console.log('Server Side error: ', error.message);
-                    }
-                }
-            );
+                this.reqobj = JSON.parse(res.data);
+                console.log(res.status);
+                //Storing the User data.
+                this.storageService.store(AuthConstants.AUTH, this.reqobj.token);
+                this.storageService.store('firstName', this.reqobj.userDetails.firstName);
+                this.storageService.store('lastName', this.reqobj.userDetails.lastName);
+                this.storageService.store('age', this.reqobj.userDetails.age);
+                this.storageService.store('contactNo',this.reqobj.userDetails.contactNo);
+                this.storageService.store('email', this.reqobj.userDetails.email);
+                this.router.navigate(['cancer-updates']);
+
+            }).catch(err => { this.toastService.presentToast('Invalid Credentials') });
+            
         } else {
-            console.log('Please enter email/username or password.');
+            this.toastService.presentToast('Email or Password is empty');
         }
     }
 }
