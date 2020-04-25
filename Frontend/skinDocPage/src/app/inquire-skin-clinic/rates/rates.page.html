@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="start">
+      <ion-back-button defaultHref="/inquire-skin-clinic"></ion-back-button>
+    </ion-button>
+    <ion-title>rates</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group (ionChange) = "starRatingMethod($event)">
+      <ion-list-header>
+        Rate the clinic
+      </ion-list-header>
+      <ion-item>
+        <ion-label>1 star</ion-label>
+        <ion-radio value = 1 checked ></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>2 stars</ion-label>
+        <ion-radio value = 2 checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>3 stars</ion-label>
+        <ion-radio value = 3 checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>4 stars</ion-label>
+        <ion-radio value = 4 checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>5 stars</ion-label>
+        <ion-radio value = 5 checked></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+      <ion-item>
+
+        <ion-textarea  type="textarea" placeholder="Add a Review"  rows="7"  maxLength="500" [(ngModel)] = "comment" ></ion-textarea>
+  
+      </ion-item>
+      <ion-item>
+
+        <ion-button color="warning" (click)= "addComment()" round>Post Comment</ion-button>
+      </ion-item>
+
+      <h1>Reviews</h1>
+      <ion-item *ngFor="let rate of rates">
+          
+        <ion-list  >
+
+         Author : {{rate.author}} <br>
+         Rate Given : {{rate.rate_given}}<br>
+         <p>Comment :<br> {{rate.comment}} </p>
+        
+        </ion-list>
+          
+      </ion-item>
+        
+  </ion-list>
+</ion-content>
