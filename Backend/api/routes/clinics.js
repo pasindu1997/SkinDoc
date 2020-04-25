@@ -59,7 +59,7 @@ router.get('/:_id', async (req, res) => {
     }
 
 });
-//skin clinic inquire.sending the email to the skin clinic
+//skin clinic inquire.sending the email to the skin clinic  
 router.post('/sendEmail', async (req, res) => {
     const clinicEmail = req.body.clinic_email;
     const userDetails = req.body.user_details;
@@ -86,7 +86,7 @@ router.post('/sendEmail', async (req, res) => {
 
     transporter.sendMail(mailOption).then(result =>{
         res.status(200).json({
-            message: 'you are safe now.The clinic will contact you.',
+            message: 'The clinic will contact you Within 24 hours',
         });
     }).catch(err=>{
         console.log(err);
