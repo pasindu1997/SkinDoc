@@ -59,7 +59,9 @@ router.get('/:_id', async (req, res) => {
     }
 
 });
-//skin clinic inquire.sending the email to the skin clinic  
+
+//TO INQUIRE THE SKIN CLINIC
+//this will take the email from the user and send a email to the clinic including user details
 router.post('/sendEmail', async (req, res) => {
     const clinicEmail = req.body.clinic_email;
     const userDetails = req.body.user_details;
