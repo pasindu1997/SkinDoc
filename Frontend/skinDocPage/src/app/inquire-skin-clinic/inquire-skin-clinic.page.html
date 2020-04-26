@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title >Inquire Skin Clinic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let clinic of clinics;let id = index" >
+        <ion-card-header (click) = ratesPage(id)>
+          <ion-card-title>{{clinic.skinClinicName}}</ion-card-title>
+          <ion-card-subtitle>{{clinic.address}}</ion-card-subtitle>
+          <ion-card-subtitle>Rating: {{clinic.current_rating}} Stars / 5 Stars</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{clinic.description}}
+        </ion-card-content>
+        <ion-item>
+          <ion-button color="warning" (click)="inquireSkinClinicPrompt(id)" round>Inquire This Clinic</ion-button>
+        </ion-item>
+        
+  </ion-card>
+  
+      
+</ion-content>

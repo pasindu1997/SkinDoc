@@ -1,11 +1,8 @@
 const mongoose = require('mongoose');
 
+//model of the user collection in the database
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    NIC:{
-        type: Number,
-        required:true,
-    },
     firstName:{
         type:String,
     },
@@ -16,7 +13,7 @@ const userSchema = mongoose.Schema({
         type: Number,
     },
     contactNo:{
-        Types: Number,
+        type: Number,
     },
     email:{
         type:String,

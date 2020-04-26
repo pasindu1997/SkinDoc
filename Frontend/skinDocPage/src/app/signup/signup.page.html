@@ -1,0 +1,26 @@
+
+<ion-content class="background">
+  <div class ="content">
+    <div class ="ion-padding">
+     <ion-input placeholder=" First Name (Mandatory)" type="text"  style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.firstName"></ion-input>
+      <br>
+      <ion-input placeholder=" Last Name (Mandatory)" type="text" style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.lastName"></ion-input>
+      <br>
+      <ion-input placeholder="Contact No (optional)" type="number"  style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.contactNo"></ion-input>
+          <br>
+        <ion-input placeholder="Age (Mandatory)" type="number" style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.age"></ion-input>
+          <br>
+      <ion-input placeholder="Email (Mandatory)" type="email" style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.email"></ion-input>
+      <br>
+      <ion-input placeholder="Password (Mandatory)"  type="password" style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.password"></ion-input>
+      <br>
+      <ion-input placeholder="Confirm Password (Mandatory)" type="password" style="padding-left: 10px !important; font-family: Nunito, sans-serif; " [(ngModel)]="signUpdata.confirmPassword"></ion-input>
+
+
+    </div>
+    <ion-button class ="actionbutton" fill="clear" expand ="full" style="text-transform: none;" (click)="signUp()"><b> Register </b></ion-button>
+    <ion-button  fill="clear" expand ="full" style="font-size: 10px; padding-bottom: 20px; color: brown; margin-right: 10px;text-transform: none;  font-family: Nunito, sans-serif;" routerLink="/login"><b> Already have an account  </b></ion-button>
+
+  </div>
+
+</ion-content>

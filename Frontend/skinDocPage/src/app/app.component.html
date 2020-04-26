@@ -1,0 +1,49 @@
+<ion-app>
+  <ion-menu side="start" menuId ="m1">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+          SkinDoc
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>  
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="upload-image">
+            <ion-icon name="search-circle-outline"></ion-icon>
+            <ion-label>Prediction</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/view-images">
+            <ion-icon name="images-outline"></ion-icon>
+            <ion-label>View Images</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/inquire-skin-clinic">
+            <ion-icon name="business-outline"></ion-icon>
+            <ion-label>Inquire a Skin Clinic</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/cancer-updates">
+            <ion-icon name="newspaper-outline"></ion-icon>
+            <ion-label>Update of Cancers</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" (click)="Logout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet main></ion-router-outlet>
+</ion-app>
