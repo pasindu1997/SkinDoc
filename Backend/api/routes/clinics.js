@@ -21,7 +21,7 @@ router.post('/',(req, res) => {
         address: req.body.address
     });
 
-    clinic.save().then(() => {
+    clinic.save().then((result)=>{
         res.status(200).json({
             message: "clinic inserted"
         })
@@ -66,11 +66,11 @@ router.post('/sendEmail', async (req, res) => {
     const clinicEmail = req.body.clinic_email;
     const userDetails = req.body.user_details;
     const imageDetails = req.body.image_details;
-
+    
     var transporter = nodemailer.createTransport({
         service: 'gmail',
-        auth: {
-            user: 'pasindu.2018097@iit.ac.lk',
+        auth:{
+            user:'pasindu.2018097@iit.ac.lk',
             pass: 'Chithra1997',
         }
     });
