@@ -61,7 +61,6 @@ router.get('/:_id', async (req, res) => {
     }
 
 });
-//skin clinic inquire.sending the email to the skin clinic  
 
 //TO INQUIRE THE SKIN CLINIC
 //this will take the email from the user and send a email to the clinic including user details
