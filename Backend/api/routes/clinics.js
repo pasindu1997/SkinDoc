@@ -10,6 +10,8 @@ const Clinic = require('../models/clinicRate');
 // let app = express();
 
 //TO CREATE A CLINIC ON THE DATABASE
+
+//to handle post request to add a clinic
 router.post('/',(req, res) => {
     console.log(req.body);
     // try {
@@ -61,20 +63,24 @@ router.get('/:_id', async (req, res) => {
 });
 //skin clinic inquire.sending the email to the skin clinic  
 router.post('/sendEmail', async (req, res) => {
+    //variable to assign the parameters if the body
     const clinicEmail = req.body.clinic_email;
     const userDetails = req.body.user_details;
     const imageDetails = req.body.image_details;
-    
+
+    //creating a transporter of the nodemailer module to send a automated email to the clinics
     var transporter = nodemailer.createTransport({
+        //assigning the service to send the email
         service: 'gmail',
+        //email and the password of the skindoc's email and password
         auth:{
-            user:'pasindu.2018097@iit.ac.lk',
-            pass: 'Chithra1997',
+            user:'skindoctor2020sl@gmail.com',
+            pass: 'v=T4Qwaa',
         }
     });
-
+    //the options of the mail what details to be send
     var mailOption = {
-        from: 'pasindu.2018097@iit.ac.lk',
+        from: 'skindoctor2020sl@gmail.com',
         to: clinicEmail,
         subject: 'Infomation about a patient from SkinDoc Application',
         html: `<h1>SkinDoc Application</h1>
@@ -83,7 +89,7 @@ router.post('/sendEmail', async (req, res) => {
                 <h2>user's image details</h2>
                 <p>`+ imageDetails+`</p>`
     };
-
+    //sending the email to the clinic with above mentioned details
     transporter.sendMail(mailOption).then(result =>{
         res.status(200).json({
             message: 'The clinic will contact you Within 24 hours',

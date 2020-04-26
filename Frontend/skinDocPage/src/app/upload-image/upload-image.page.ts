@@ -106,6 +106,7 @@ export class UploadImagePage implements OnInit {
     }
 
     takePhoto(sourceType  :number) {
+        this.photos = [];
         const options: CameraOptions = {
             quality: 50, // picture quality
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -114,7 +115,7 @@ export class UploadImagePage implements OnInit {
             correctOrientation: true,
             sourceType:sourceType,
         };
-        this.camera.getPicture(options) .then((imageData) => {
+        this.camera.getPicture(options).then((imageData) => {
             this.base64Image = 'data:image/jpeg;base64,' + imageData;
             this.photos.push(this.base64Image);
             this.sendData(this.base64Image);
@@ -137,11 +138,11 @@ export class UploadImagePage implements OnInit {
             this.toastService.presentToast('upload successfull');
             this.respond = JSON.parse(result.response);
             this.prediction = this.respond.created.prediction;
-            this.accuracy = parseInt( this.respond.created.percentage);
+            this.accuracy = this.respond.created.riskMessage;
 
         },(err) =>{
             this.toastService.presentToast("A error has been occured");
-        } )
+        });
     }
 
 

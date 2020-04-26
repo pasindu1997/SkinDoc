@@ -21,7 +21,7 @@ export class InquireSkinClinicPage implements OnInit {
 
   constructor(private alertCtrl: AlertController,private router: Router,private placesService: InquireSkinClinicService, private httpService:HttpService,private toastService: ToastService,private authService: AuthService) { 
     this.httpService.getClinics().then((res) => {
-      this.clinics = JSON.parse( res.data);
+      this.clinics = JSON.parse(res.data);
     }),(err)=>{
       this.toastService.presentToast("A error has been occured");
     }
@@ -75,11 +75,14 @@ export class InquireSkinClinicPage implements OnInit {
   inquireClinic(index){
     this.httpService.getImages(this.userDetails.userEmail).then((res) => {
       this.images = JSON.parse(res.data) ;
+      this.httpService.sendEmail(this.clinics[index].clinic_email,this.userDetails,this.images).then((res) =>{
+        this.toastService.presentToast(JSON.stringify(JSON.parse(res.data).message));
+      });
+    }).catch(err=>{
+      this.toastService.presentToast("Error has been occured");
     });
 
-    this.httpService.sendEmail(this.clinics[index].clinic_email,this.userDetails,this.images).then((res) =>{
-      this.toastService.presentToast(JSON.stringify(JSON.parse(res.data).message));
-    });
+   
     
   }
 

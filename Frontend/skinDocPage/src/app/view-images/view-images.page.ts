@@ -20,8 +20,7 @@ export class ViewImagesPage implements OnInit {
    }
 
   ngOnInit() {
-    
-    
+
     
   }
 
@@ -55,11 +54,11 @@ export class ViewImagesPage implements OnInit {
                     text: 'Yes',
                     handler: () => {
                         console.log('Agree clicked');
-                        this.toastService.presentToast(this.images[index].image);
                         this.httpService.deleteImage(this.images[index].image).then((res) => {
                           this.toastService.presentToast('Image Successfully Deleted');
-                        })
-                        this.buttonReload();
+                          this.buttonReload();
+                        });
+                        
                     }
                 }
             ]

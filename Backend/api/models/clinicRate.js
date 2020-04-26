@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-
+//model of the clinics collection in the database
 const PostClinicsSchema = mongoose.Schema({
     // _id: mongoose.Schema.Types.ObjectId,
 

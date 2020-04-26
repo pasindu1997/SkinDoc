@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv/config');
-const Clinic = require('../models/clinicRate');
 const Rate = require('../models/rate');
-const updateRating = require('../middleware/rating_updater');
 
 
 //TO RATE A CLINIC
 router.post('/postReview', async (req, res) => {
 
-
+        //creating a object of rate 
         const rate = new Rate({
             clinicId: req.body.clinic_email,
             rate_given: req.body.rate_given,
             comment: req.body.comment,
             author: req.body.author
         });
-
+        //saving the aove created image object
         rate.save().then((result) => {
             res.status(200).json({
                 message:"The review has been added",
@@ -42,6 +40,7 @@ router.post('/postReview', async (req, res) => {
 //TO SHOW ALL THE RATINGS OF A PARTICULAR CLINIC
 router.post('/', async (req, res) => {
     const clinic_email = req.body.clinic_email;
+    // finding the rates corresponding to the email which is send in the email
     Rate.find({clinicId:clinic_email}).exec().then(result => {
         res.status(200).send(result);
     }, err =>{

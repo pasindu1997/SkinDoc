@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-
+//model of the rates collection in the database
 const rateClinicsSchema = mongoose.Schema({
 
 

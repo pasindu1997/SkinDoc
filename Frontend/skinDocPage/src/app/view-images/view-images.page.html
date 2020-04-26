@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>view-Images</ion-title>
+    <ion-title>All Predicted Images</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -12,7 +12,7 @@
       <ion-item *ngFor="let photo of images;  let id = index">
         <ion-thumbnail style="width: 150px; height: 150px" class="block" slot="start">
         
-          <img src="http://192.168.1.101:3000/{{photo.image}}"/>
+          <img src="http://192.168.1.103:3000/{{photo.image}}"/>
         </ion-thumbnail>
         <ion-list>
           <ion-item>
@@ -20,7 +20,7 @@
           </ion-item>
 
           <ion-item>
-            Accuracy: {{photo.percentage}}%
+            Risk Level: <br> {{photo.riskMessage}}
           </ion-item>
           <ion-item>
             <ion-icon name="trash" class="deleteIcon" (click)="imageDelete(id)"></ion-icon>
