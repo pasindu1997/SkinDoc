@@ -9,11 +9,14 @@ router.post('/postReview', async (req, res) => {
 
         //creating a object of rate 
         const rate = new Rate({
-            clinicId: req.body.clinic_email,
+            // clinicId: Clinic.findById(req.params._id),
+            clinicId: specificClinic.clinic_email,
             rate_given: req.body.rate_given,
             comment: req.body.comment,
+            commented_at: req.body.commented_at,
             author: req.body.author
         });
+
         //saving the aove created image object
         rate.save().then((result) => {
             res.status(200).json({
