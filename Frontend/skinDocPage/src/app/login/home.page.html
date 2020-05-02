@@ -1,0 +1,31 @@
+<ion-content class ="background">
+ <ion-card color="danger" class="content">
+ <ion-card-header>
+   SkinDoc
+ </ion-card-header>
+ <ion-card-content>
+   
+  
+     <ion-item>
+       <ion-label position="floating"> Email </ion-label>
+       <ion-input type="text" [(ngModel)]="postData.email"></ion-input>
+     </ion-item>
+     <ion-item>
+      <ion-label  position="floating"> Password</ion-label>
+      <ion-input type="password" [(ngModel)]="postData.password"></ion-input>
+    </ion-item>
+    <ion-item>
+   <ion-button  color="#ff4961" block outline  (click)="loginAction()">LOGIN</ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button color="#ff4961" block outline size="small" routerLink="/signup" routerDirection="root">
+     
+      <p class="signin-text">Register</p>
+      
+    </ion-button>
+    
+  </ion-item>
+ </ion-card-content>
+</ion-card>
+
+</ion-content>

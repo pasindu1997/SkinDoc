@@ -11,13 +11,13 @@
     <ion-content>
       <ion-list>  
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="">
+          <ion-item lines="none" routerLink="upload-image">
             <ion-icon name="search-circle-outline"></ion-icon>
             <ion-label>Prediction</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/cancer-updates">
+          <ion-item lines="none" routerLink="/view-images">
             <ion-icon name="images-outline"></ion-icon>
             <ion-label>View Images</ion-label>
           </ion-item>
@@ -29,19 +29,13 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/inquire-skin-clinic">
-            <ion-icon name="star-half-outline"></ion-icon>
-            <ion-label>Rate Skin Clinics</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
           <ion-item lines="none" routerLink="/cancer-updates">
             <ion-icon name="newspaper-outline"></ion-icon>
-            <ion-label>Update of cancers</ion-label>
+            <ion-label>Update of Cancers</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" (click)="onLogout()" button>
+          <ion-item lines="none" (click)="Logout()" button>
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Logout</ion-label>
           </ion-item>

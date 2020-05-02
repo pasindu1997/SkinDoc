@@ -10,15 +10,26 @@ mongoose.Promise = global.Promise;
 const userRoutes = require('./api/routes/users');
 const imageRoutes = require('./api/routes/images');
 
+const Clinics = require('./api/routes/clinics');
+const Rates = require('./api/routes/rates');
+
+// const specific = require('./api/routes/clinics');
+
+//middleware
+// app.use('/clinics', Clinics);
+// app.use('/clinics/:clinicEmail', Clinics);
+
+
 //this will make the upload file public which means this folder is publicly available
 app.use(express.static('uploads')); //hit http://localhost:3000/A%2016.jpg in browser
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+//avoiding cors by adding appropriate headers
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin','*');
-    res.header('Access-Control-Allow-Headers','Origin,X-Requested-With,Content-Type,Accept,Authorization');
+    res.header('Access-Control-Allow-Headers','*');
     if(req.method === 'OPTIONS'){
         res.header('Access-Control-Allow-Methods','PUT, POST, PATCH, DELETE, GET');
         return res.status(200).json({});
@@ -27,8 +38,11 @@ app.use((req,res,next)=>{
 });
 
 //routes which should handle request
-app.use('/users',userRoutes);
-app.use('/images',imageRoutes);
+
+app.use('/users', userRoutes);
+app.use('/images', imageRoutes);
+app.use('/clinics', Clinics);
+app.use('/rates', Rates);
 
 
 //if there is no requests route the below
