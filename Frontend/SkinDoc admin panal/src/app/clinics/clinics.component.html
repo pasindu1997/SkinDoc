@@ -1,0 +1,158 @@
+<div class="container">
+  <!-- vehicle menu -->
+  <div class="row" style="margin-top:12px;">
+    <div class="col-md-8">
+      <input type="text"
+             [(ngModel)]="searchString"
+             class="form-control"
+             style="width: 150%;"
+             placeholder="Search Clinics...">
+    </div>
+  </div>
+  <!-- vehicle content -->
+  <div class="row" style="margin-top: 28px;">
+    <!-- vehicle Menu -->
+    <div class="col-md-3">
+      <br>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action" (click)="prepareAddClinic()" style="background-color: lawngreen">
+          <i class="fa fa-heartbeat">Add Clinic</i>&nbsp;
+        </a>
+        <a *ngFor="let clinic of clinics | filtering:searchString" (click)="selectedClinic(clinic)"
+           class="list-group-item list-group-item-action">
+          <i class="fa fa-heartbeat"></i>&nbsp;{{clinic["skinClinicName"]}}
+        </a>
+      </div>
+    </div>
+
+    <!-- vehicle Panel -->
+    <div class="col-md-9" [hidden]="isSelected()">
+      <div>
+
+        <form style="border: 2px solid green; padding: 100px">
+          <h1 style="text-align: center; margin-top: -100px;margin-bottom: 50px">Update Information about clinics</h1>
+        <table>
+            <tr>
+              <td>
+                <label for="skinClinicName">Clinic Name: </label><br><br>
+
+              </td>
+              <td>
+                <input [(ngModel)]="newClinicName" type="text" id="skinClinicName" name="skinClinicName" value='{{selectedClinicDetails["skinClinicName"]}}' size="50"><br><br>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label for="clinic_email">Clinic Email: </label><br><br>
+
+              </td>
+              <td>
+                <input [(ngModel)]="newClinicEmail" type="text" id="clinic_email" name="clinic_email" value='{{selectedClinicDetails["clinic_email"]}}' size="50"><br><br>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label for="current_rating">Rating: </label><br><br>
+
+              </td>
+              <td>
+                <input [(ngModel)]="newRating" type="number" id="current_rating" name="current_rating" value='{{selectedClinicDetails["current_rating"]}}' size="50"><br><br>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label for="description">Description: </label><br><br>
+
+              </td>
+              <td>
+                <textarea [(ngModel)]="newDescription" id="description" name="description" value='{{selectedClinicDetails["description"]}}' rows="10" cols="50"></textarea><br><br>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label for="address">Address: </label><br><br>
+
+              </td>
+              <td>
+                <input [(ngModel)]="newAddress" type="text" id="address" name="address" value='{{selectedClinicDetails["address"]}}' size="50"><br><br>
+              </td>
+            </tr>
+          </table>
+          <input type="submit" value="Update Changes" style="background-color: lawngreen" (click)="modifyClinicInfo()">
+          <input type="submit" style="margin-left: 20px; background-color: red; color: white" value="Delete This Clinic" (click)="DeleteClinic()">
+        </form>
+      </div>
+
+      <br><br>
+    </div>
+  </div>
+
+  <!-- vehicle Panel -->
+  <div class="col-md-9" [hidden]="isHidden()" style="margin-left: 275px;margin-top: -150px">
+    <div>
+
+      <form style="border: 2px solid green; padding: 100px">
+        <h1 style="text-align: center; margin-top: -100px;margin-bottom: 50px">Add a new clinic to your system</h1>
+        <table>
+          <tr>
+            <td>
+              <label for="skinClinicName">Clinic Name: </label><br><br>
+
+            </td>
+            <td>
+              <input [(ngModel)]="newClinicName" type="text" id="add_skinClinicName" name="add_skinClinicName"  size="50"><br><br>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="clinic_email">Clinic Email: </label><br><br>
+
+            </td>
+            <td>
+              <input [(ngModel)]="newClinicEmail" type="text" id="add_clinic_email" name="add_clinic_email" size="50"><br><br>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="current_rating">Rating: </label><br><br>
+
+            </td>
+            <td>
+              <input [(ngModel)]="newRating" type="number" id="add_current_rating" name="add_current_rating"  size="50"><br><br>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="description">Description: </label><br><br>
+
+            </td>
+            <td>
+              <textarea [(ngModel)]="newDescription" id="add_description" name="add_description" rows="10" cols="50"></textarea><br><br>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="address">Address: </label><br><br>
+
+            </td>
+            <td>
+              <input [(ngModel)]="newAddress" type="text" id="add_address" name="add_address" size="50"><br><br>
+            </td>
+          </tr>
+        </table>
+        <input type="submit" value="Add this Clinic" style="background-color: lawngreen" (click)="addClinic()">
+      </form>
+    </div>
+
+    <br><br>
+  </div>
+</div>
+
