@@ -12,7 +12,7 @@ const Clinic = require('../models/clinicRate');
 //TO CREATE A CLINIC ON THE DATABASE
 
 //to handle post request to add a clinic
-router.post('/', (req, res) => {
+router.post('/',(req, res) => {
     console.log(req.body);
     // try {
     const clinic = new Clinic({
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
         address: req.body.address
     });
 
-    clinic.save().then((result) => {
+    clinic.save().then((result)=>{
         res.status(200).json({
             message: "clinic inserted"
         })
@@ -57,33 +57,10 @@ router.get('/:_id', async (req, res) => {
         console.log('Clinic you requested');
     } catch (err) {
         console.log(err);
-        res.json({ message: err });
+        res.json({message: err});
     }
 
 });
-
-//modifing a clinic
-router.post('/modify', async (req, res) => {
-    var clinicCurrentEmail = req.body.current_email;
-    Clinic.findOne({ clinic_email: clinicCurrentEmail }).exec().then((result) => {
-        result.clinic_email = req.body.clinic_email,
-        result.skinClinicName = req.body.skinClinicName,
-        result.current_rating = req.body.current_rating,
-        result.description = req.body.description,
-        result.address = req.body.address,
-
-        result.save().then((result) => {
-            res.status(200).send(result)
-        },
-        (error) => {
-            res.status(409).send(error);
-        });
-
-    },
-        (error) => {
-            res.status(309).send(error);
-        });
-})
 
 //TO INQUIRE THE SKIN CLINIC
 //this will take the email from the user and send a email to the clinic including user details
@@ -98,8 +75,8 @@ router.post('/sendEmail', async (req, res) => {
         //assigning the service to send the email
         service: 'gmail',
         //email and the password of the skindoc's email and password
-        auth: {
-            user: 'skindoctor2020sl@gmail.com',
+        auth:{
+            user:'skindoctor2020sl@gmail.com',
             pass: 'v=T4Qwaa',
         }
     });
@@ -110,29 +87,20 @@ router.post('/sendEmail', async (req, res) => {
         subject: 'Infomation about a patient from SkinDoc Application',
         html: `<h1>SkinDoc Application</h1>
                 <h2>user's details</h2>
-                <p>`+ userDetails + `</p>
+                <p>`+ userDetails+`</p>
                 <h2>user's image details</h2>
-                <p>`+ imageDetails + `</p>`
+                <p>`+ imageDetails+`</p>`
     };
     //sending the email to the clinic with above mentioned details
-    transporter.sendMail(mailOption).then(result => {
+    transporter.sendMail(mailOption).then(result =>{
         res.status(200).json({
             message: 'The clinic will contact you Within 24 hours',
         });
-    }).catch(err => {
+    }).catch(err=>{
         console.log(err);
     });
 });
 
-//DELETE A CLINIC
-router.post('/delete',async (req,res)=>{
-    const clinicEmail = req.body.clinic_email;
-    Clinic.findOneAndDelete({clinic_email:clinicEmail}).exec().then(result=>{
-        res.status(200).send(result);
-    },err=>{
-        res.status(309).send(err)
-    })
-})
 
 //TO UPDATE THE RATING OF A CLINIC
 

@@ -9,7 +9,7 @@ import { File } from '@ionic-native/file/ngx';
   providedIn: 'root'
 })
 export class HttpService {
-  private BASE_URL = 'http://192.168.1.101:3000';
+  private BASE_URL = 'http://192.168.1.103:3000';
 
   constructor(private http: HTTP, private fileTransfer:FileTransfer, private file: File) { }
 
